@@ -179,7 +179,7 @@ const Dashboard = () => {
         {/* Task Progress */}
         <div className="glass-card p-6 mb-6 animate-fade-in-up animation-delay-600">
           <h2 className="font-display text-lg font-semibold mb-4">Task Progress</h2>
-          <div className="flex items-center gap-8">
+          <div className="flex flex-col items-center gap-4">
             {/* Circular Progress */}
             <div className="relative w-32 h-32">
               <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
