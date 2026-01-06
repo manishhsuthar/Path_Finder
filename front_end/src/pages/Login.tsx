@@ -31,7 +31,9 @@ const Login = () => {
       localStorage.setItem('user', JSON.stringify({
         username: response.data.username,
         role: response.data.role,
-        email: email
+        email: email,
+        first_name: response.data.first_name,
+        last_name: response.data.last_name
       }));
       navigate('/dashboard');
     } catch (err: any) {

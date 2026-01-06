@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 import { Sparkles, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -8,7 +9,7 @@ import { useEffect, useState } from 'react';
 const navItems = ['Career', 'Resources', 'Performance', 'Profile'];
 
 const Profile = () => {
-  const [user, setUser] = useState<{ email: string; username: string; role: string } | null>(null);
+  const [user, setUser] = useState<{ email: string; username: string; role: string; first_name: string; last_name: string; } | null>(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -52,7 +53,7 @@ const Profile = () => {
                 {item}
               </Link>
             ))}
-            {user && <span className="text-foreground/70">{user.email}</span>}
+            {user && <span className="text-foreground/70">{user.first_name} {user.last_name}</span>}
           </nav>
         </div>
 
@@ -61,6 +62,7 @@ const Profile = () => {
           <h2 className="font-display text-lg font-semibold mb-4">Profile</h2>
           {user ? (
             <div>
+              <p className="text-foreground/80 mb-2">Name: {user.first_name} {user.last_name}</p>
               <p className="text-foreground/80 mb-2">Username: {user.username}</p>
               <p className="text-foreground/80 mb-4">Email: {user.email}</p>
               <Button variant="destructive" size="sm" onClick={handleLogout}>

@@ -9,8 +9,11 @@ import heroBg from '@/assets/hero-bg.jpg';
 import api from '@/lib/api';
 
 const Signup = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -22,12 +25,19 @@ const Signup = () => {
       setError('You must agree to the terms and conditions.');
       return;
     }
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
     setLoading(true);
     setError('');
     try {
       await api.post('/auth/register/', {
-        email,
+        first_name: firstName,
+        last_name: lastName,
+        email,  
         password,
+        password2: confirmPassword,
         role: 'student',
       });
       navigate('/login');
@@ -38,6 +48,10 @@ const Signup = () => {
           setError(`Email: ${errorData.email[0]}`);
         } else if (errorData.password) {
           setError(`Password: ${errorData.password[0]}`);
+        } else if (errorData.first_name) {
+          setError(`First Name: ${errorData.first_name[0]}`);
+        } else if (errorData.last_name) {
+          setError(`Last Name: ${errorData.last_name[0]}`);
         } else {
           setError('Failed to sign up. Please try again.');
         }
@@ -115,6 +129,24 @@ const Signup = () => {
 
             <form onSubmit={handleSubmit} className="space-y-5">
               {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+              <div className="flex gap-4">
+                <Input
+                  type="text"
+                  placeholder="First Name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                  disabled={loading}
+                />
+                <Input
+                  type="text"
+                  placeholder="Last Name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  required
+                  disabled={loading}
+                />
+              </div>
               <div>
                 <Input
                   type="email"
@@ -132,6 +164,17 @@ const Signup = () => {
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
+                  disabled={loading}
+                />
+              </div>
+              
+              <div>
+                <Input
+                  type="password"
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   required
                   disabled={loading}
                 />

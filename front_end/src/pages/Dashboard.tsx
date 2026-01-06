@@ -28,7 +28,7 @@ const roadmapPoints = [
 ];
 
 const Dashboard = () => {
-  const [user, setUser] = useState<{ email: string; username: string; role: string } | null>(null);
+  const [user, setUser] = useState<{ email: string; username: string; role: string; first_name: string; last_name: string; } | null>(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -65,7 +65,7 @@ const Dashboard = () => {
                 {item}
               </Link>
             ))}
-            {user && <span className="text-foreground/70">{user.email}</span>}
+            {user && <span className="text-foreground/70">{user.first_name} {user.last_name}</span>}
           </nav>
         </div>
 
