@@ -32,7 +32,7 @@ const Signup = () => {
     setLoading(true);
     setError('');
     try {
-      await api.post('/auth/register/', {
+      const response = await api.post('/auth/register/', {
         first_name: firstName,
         last_name: lastName,
         email,  
@@ -40,6 +40,9 @@ const Signup = () => {
         password2: confirmPassword,
         role: 'student',
       });
+      // Save the token and user data to localStorage
+      localStorage.setItem('token', response.data.access);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
       navigate('/dashboard');
     } catch (err: any) {
       if (err.response && err.response.data) {

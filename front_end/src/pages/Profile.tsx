@@ -63,7 +63,7 @@ const Profile = () => {
           {user ? (
             <div>
               <p className="text-foreground/80 mb-2">Name: {user.first_name} {user.last_name}</p>
-              <p className="text-foreground/80 mb-2">Username: {user.username}</p>
+              {user.username && <p className="text-foreground/80 mb-2">Username: {user.username}</p>}
               <p className="text-foreground/80 mb-4">Email: {user.email}</p>
               <Button variant="destructive" size="sm" onClick={handleLogout}>
                 <LogOut className="w-4 h-4 mr-2" />
